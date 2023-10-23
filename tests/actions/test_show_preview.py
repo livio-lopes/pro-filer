@@ -52,15 +52,26 @@ def test_show_preview_files_and_dirs(capsys):
             "src/__init__.py",
             "src/app.py",
             "src/utils/__init__.py",
+            "src/database/databode.sql",
+            "src/series/resume.txt",
+            "src/films/fourier.py",
         ],
-        "all_dirs": ["src", "src/utils"],
+        "all_dirs": [
+            "src",
+            "src/utils",
+            "src/database",
+            "src/films",
+            "src/series",
+        ],
     }
-    line1 = "Found 3 files and 2 directories\n"
-    line20 = "First 5 files: "
-    line21 = "['src/__init__.py', 'src/app.py', 'src/utils/__init__.py']\n"
-    line2 = line20 + line21
-    line3 = "First 5 directories: ['src', 'src/utils']\n"
-    expected_output = line1 + line2 + line3
+    expected_output = (
+        "Found 6 files and 5 directories\n"
+        "First 5 files: ['src/__init__.py', "
+        "'src/app.py', 'src/utils/__init__.py',"
+        " 'src/database/databode.sql', 'src/series/resume.txt']\n"
+        "First 5 directories: "
+        "['src', 'src/utils', 'src/database', 'src/films', 'src/series']\n"
+    )
     show_preview(context)
     captured = capsys.readouterr()
     assert captured.out == expected_output
