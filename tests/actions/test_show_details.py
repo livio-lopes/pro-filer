@@ -44,3 +44,21 @@ def test_show_details_file(capsys, tmp_path):
     show_details(context)
     captured = capsys.readouterr()
     assert captured.out == expected_output
+
+
+def test_show_details_file_no_extension(capsys, tmp_path):
+    tmp = tmp_path / "databode"
+    tmp.mkdir()
+    tmp_txt = tmp / "bode"
+    tmp_txt.write_text("beeh")
+    expected_output = (
+        f"File name: bode\n"
+        "File size in bytes: 4\n"
+        "File type: file\n"
+        f"File extension: [no extension]\n"
+        f"Last modified date: {date.today()}\n"
+    )
+    context = {"base_path": f"{tmp_path}/databode/bode"}
+    show_details(context)
+    captured = capsys.readouterr()
+    assert captured.out == expected_output
